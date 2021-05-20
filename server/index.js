@@ -7,6 +7,7 @@ let port = process.env.PORT || 3000;
 
 // ------- Routes ------- //
 
+// Explain your APIs here
 app.get("/", function (req, res) {
   res.end("Hi");
 });
@@ -16,8 +17,6 @@ app.get("/branches/autocomplete", (req, response) => {
   let branch_name = req.query.q;
   let limit = req.query.limit;
   let offset = req.query.offset || 0;
-
-  console.log(branch_name, limit, offset);
 
   const text =
     "SELECT * FROM branches WHERE branch = $1 ORDER BY ifsc ASC OFFSET $2 LIMIT $3";
@@ -40,8 +39,6 @@ app.get("/branches", (req, response) => {
   let query_string = req.query.q;
   let limit = req.query.limit;
   let offset = req.query.offset || 0;
-
-  console.log(query_string, limit, offset);
 
   const text =
     "SELECT * FROM branches WHERE ifsc = $1 OR branch = $1 OR address = $1 OR city = $1 OR district = $1 OR state = $1 ORDER BY ifsc ASC OFFSET $2 LIMIT $3";
