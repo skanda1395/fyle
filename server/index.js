@@ -1,6 +1,10 @@
 const express = require("express");
 const app = express();
 const client = require("./db");
+const cors = require("cors");
+
+// Enable cors-access for remote testing
+app.use(cors());
 
 // Basic Configuration
 let port = process.env.PORT || 3000;
@@ -54,6 +58,15 @@ app.get("/branches", (req, response) => {
       response.json(result);
     })
     .catch((err) => console.error(err.stack));
+});
+
+// 404 Page
+app.use((req, res) => {
+  res
+    .status(404)
+    .end(
+      "You have hit the wrong URL. Visit homepage to learn about this API endpoints"
+    );
 });
 
 // Spin up our server
