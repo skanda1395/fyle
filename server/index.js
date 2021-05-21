@@ -23,7 +23,7 @@ app.get("/branches/autocomplete", (req, response) => {
   let offset = req.query.offset || 0;
 
   const text =
-    "SELECT * FROM branches WHERE branch LIKE $1 ORDER BY ifsc ASC OFFSET $2 LIMIT $3";
+    "SELECT * FROM branches WHERE branch LIKE $1 ORDER BY ifsc ASC LIMIT $3 OFFSET $2";
   const values = ["%" + branch_name + "%", offset, limit];
 
   // Query Database
@@ -45,7 +45,7 @@ app.get("/branches", (req, response) => {
   let offset = req.query.offset || 0;
 
   const text =
-    "SELECT ifsc, bank_id, branch, address, city, district, state FROM branches WHERE text_with_idx @@ to_tsquery($1) ORDER BY ifsc ASC OFFSET $2 LIMIT $3";
+    "SELECT ifsc, bank_id, branch, address, city, district, state FROM branches WHERE text_with_idx @@ to_tsquery($1) ORDER BY ifsc ASC LIMIT $3 OFFSET $2";
   const values = [query_string, offset, limit];
 
   // Query Database
@@ -64,7 +64,7 @@ app.get("/branches", (req, response) => {
 app.use((req, res) => {
   res
     .status(404)
-    .end(
+    .send(
       "You have hit the wrong URL. Visit <a href='/'>homepage</a> to learn about this API endpoints"
     );
 });
