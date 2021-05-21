@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const client = require("./db_local");
+const client = require("./db");
 const cors = require("cors");
 
 // Enable cors-access for remote testing
