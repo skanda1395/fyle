@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const client = require("./db");
+const client = require("./db_local");
 const cors = require("cors");
 
 // Enable cors-access for remote testing
@@ -23,8 +23,8 @@ app.get("/branches/autocomplete", (req, response) => {
   let offset = req.query.offset || 0;
 
   const text =
-    "SELECT * FROM branches WHERE branch = $1 ORDER BY ifsc ASC OFFSET $2 LIMIT $3";
-  const values = [branch_name, offset, limit];
+    "SELECT * FROM branches WHERE branch LIKE $1 ORDER BY ifsc ASC OFFSET $2 LIMIT $3";
+  const values = ["%" + branch_name + "%", offset, limit];
 
   // Query Database
   client
@@ -45,7 +45,7 @@ app.get("/branches", (req, response) => {
   let offset = req.query.offset || 0;
 
   const text =
-    "SELECT * FROM branches WHERE ifsc = $1 OR branch = $1 OR address = $1 OR city = $1 OR district = $1 OR state = $1 ORDER BY ifsc ASC OFFSET $2 LIMIT $3";
+    "SELECT ifsc, bank_id, branch, address, city, district, state FROM branches WHERE text_with_idx @@ to_tsquery($1) OFFSET $2 LIMIT $3";
   const values = [query_string, offset, limit];
 
   // Query Database
