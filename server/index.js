@@ -45,7 +45,7 @@ app.get("/branches", (req, response) => {
   let offset = req.query.offset || 0;
 
   const text =
-    "SELECT ifsc, bank_id, branch, address, city, district, state FROM branches WHERE text_with_idx @@ to_tsquery($1) OFFSET $2 LIMIT $3";
+    "SELECT ifsc, bank_id, branch, address, city, district, state FROM branches WHERE text_with_idx @@ to_tsquery($1) ORDER BY ifsc ASC OFFSET $2 LIMIT $3";
   const values = [query_string, offset, limit];
 
   // Query Database
