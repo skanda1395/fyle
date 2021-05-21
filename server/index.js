@@ -13,7 +13,7 @@ let port = process.env.PORT || 3000;
 
 // Explain your APIs here
 app.get("/", function (req, res) {
-  res.end("Hi");
+  res.sendFile(process.cwd() + "/views/index.html");
 });
 
 // Get all matches based on BRANCH NAME (Ordered by IFSC Code)
@@ -65,7 +65,7 @@ app.use((req, res) => {
   res
     .status(404)
     .end(
-      "You have hit the wrong URL. Visit homepage to learn about this API endpoints"
+      "You have hit the wrong URL. Visit <a href='/'>homepage</a> to learn about this API endpoints"
     );
 });
 

@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <title>Indian Banks API</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>API Project: Indian Banks Search Service</h2>
+      <h3>User Story:</h3>
+      <ol>
+        <li>
+          GET Request to
+          <code>[project_url]/api/branches?q=<></code> and you will receive a
+          list of banks that has that search input string across all columns
+          (check the fields below) as JSON response.<br />Example :
+          <code
+            >{ "branches":[ { "ifsc":"ABHY0065001", "bank_id":60,
+            "branch":"RTGS-HO", "address":"ABHYUDAYA BANK BLDG., B.NO.71, NEHRU
+            NAGAR, KURLA (E), MUMBAI-400024", "city":"MUMBAI",
+            "district":"GREATER MUMBAI", "state":"MAHARASHTRA" }, {
+            "ifsc":"ABNA0000001", "bank_id":110, "branch":"RTGS-HO", "address":
+            "414 EMPIRE COMPLEX, SENAPATI BAPAT MARG LOWER PAREL WEST MUMBAI
+            400013", "city":"MUMBAI", "district":"GREATER BOMBAY",
+            "state":"MAHARASHTRA" }, ] }</code
+          >
+        </li>
+        <li>
+          GET Request to
+          <code>[project_url]/api/branches/autocomplete?q=<></code> and you will
+          receive a list of banks that has query's branch name as JSON
+          response.<br />Example :
+          <code
+            >{ "branches":[ { "ifsc":"ABHY0065001", "bank_id":60,
+            "branch":"RTGS-HO", "address":"ABHYUDAYA BANK BLDG., B.NO.71, NEHRU
+            NAGAR, KURLA (E), MUMBAI-400024", "city":"MUMBAI",
+            "district":"GREATER MUMBAI", "state":"MAHARASHTRA" }, {
+            "ifsc":"ABNA0000001", "bank_id":110, "branch":"RTGS-HO", "address":
+            "414 EMPIRE COMPLEX, SENAPATI BAPAT MARG LOWER PAREL WEST MUMBAI
+            400013", "city":"MUMBAI", "district":"GREATER BOMBAY",
+            "state":"MAHARASHTRA" }, ] }</code
+          >
+        </li>
+        <li>
+          If I pass an invalid URL that doesn't follow the
+          <code
+            >http(s)://www.example.com(/branches?q=<>&limit=<>&offset=<>)</code
+          >
+          format, the JSON response will contain an error like
+          <code>{"branches":[]}</code><br />
+        </li>
+      </ol>
+    </div>
+  </body>
+</html>
