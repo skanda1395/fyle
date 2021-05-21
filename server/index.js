@@ -23,7 +23,7 @@ app.get("/branches/autocomplete", (req, response) => {
   let offset = req.query.offset || 0;
 
   const text =
-    "SELECT * FROM branches WHERE branch LIKE $1 ORDER BY ifsc ASC LIMIT $3 OFFSET $2";
+    "SELECT ifsc, bank_id, branch, address, city, district, state FROM branches WHERE branch LIKE $1 ORDER BY ifsc ASC LIMIT $3 OFFSET $2";
   const values = ["%" + branch_name + "%", offset, limit];
 
   // Query Database
