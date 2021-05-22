@@ -3,7 +3,7 @@ const app = express();
 const client = require("./db");
 const cors = require("cors");
 
-// Enable cors-access for remote testing
+// Enable cors-access
 app.use(cors());
 
 // Basic Configuration
