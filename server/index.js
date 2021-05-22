@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const client = require("./db");
+const client = require("./db_local");
 const cors = require("cors");
 
 // Enable cors-access for remote testing
@@ -18,6 +18,7 @@ app.get("/", function (req, res) {
 
 // Get all matches based on BRANCH NAME (Ordered by IFSC Code)
 app.get("/branches/autocomplete", (req, response) => {
+  console.log("autocomplete");
   let branch_name = req.query.q;
   let limit = req.query.limit;
   let offset = req.query.offset || 0;
@@ -40,6 +41,7 @@ app.get("/branches/autocomplete", (req, response) => {
 
 // Get all matches across all columns and all rows (Ordered by IFSC Code)
 app.get("/branches", (req, response) => {
+  console.log("branches");
   let query_string = req.query.q;
   let limit = req.query.limit;
   let offset = req.query.offset || 0;
@@ -47,6 +49,29 @@ app.get("/branches", (req, response) => {
   const text =
     "SELECT ifsc, bank_id, branch, address, city, district, state FROM branches WHERE text_with_idx @@ to_tsquery($1) ORDER BY ifsc ASC LIMIT $3 OFFSET $2";
   const values = [query_string, offset, limit];
+
+  // Query Database
+  client
+    .query(text, values)
+    .then((res) => {
+      let result = {
+        branches: res.rows,
+      };
+      response.json(result);
+    })
+    .catch((err) => console.error(err.stack));
+});
+
+// Get all matches for a city (Ordered by IFSC Code) (FOR MY OWN TESTING)
+app.get("/branches/city", (req, response) => {
+  console.log("city query");
+  let query_string = req.query.q;
+  let limit = req.query.limit;
+  let offset = req.query.offset || 0;
+
+  const text =
+    "SELECT ifsc, bank_id, branch, address, city, district, state FROM branches WHERE city ILIKE $1 ORDER BY ifsc ASC LIMIT $3 OFFSET $2";
+  const values = ["%" + query_string + "%", offset, limit];
 
   // Query Database
   client
