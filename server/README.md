@@ -18,12 +18,12 @@ Example : `{ "branches":[ { "ifsc":"ABNA0100318", "bank_id":110, "branch":"BANGA
 
 #### Creation Example using CURL:
 
-Get 3 banks (since limit = 3) which has 'RTGS' as branch name:
+##### Search banks by branch name 👇:
+
+Get 3 banks (since limit = 3) which has 'RTGS' as branch name: \
 CURL https://indian-banks-api.herokuapp.com/branches/autocomplete?q=RTGS&limit=3&offset=0 | jq
 
-Get 3 banks (since limit = 3) which has 'Bangalore' in any of the columns:
+##### Search banks that matches your input string 👇:
+
+Get 3 banks (since limit = 3) which has 'Bangalore' in any of the columns: \
 CURL https://indian-banks-api.herokuapp.com/branches/autocomplete?q=RTGS&limit=3&offset=0 | jq
-
-```
-
-```
