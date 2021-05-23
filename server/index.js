@@ -64,7 +64,7 @@ app.get("/branches", (req, response) => {
 
 // Get all matches for a city (Ordered by IFSC Code) (FOR MY OWN TESTING)
 app.get("/branches/city", (req, response) => {
-  console.log("city query");
+  // console.log("city query");
   let query_string = req.query.q;
   let limit = req.query.limit;
   let offset = req.query.offset || 0;
